@@ -2,6 +2,7 @@
 
 
 namespace App\Tools;
+
 use PDO;
 
 class DatabaseTools
@@ -23,10 +24,19 @@ class DatabaseTools
         $this->dsn = "mysql:host=$host;dbname=$dbName";
         $this->initDatabase();
     }
-    public function initDatabase(){
-            $this->pdo = new PDO($this->dsn, $this->user, $this->password);
+
+
+
+
+
+    // exemples de fonctions
+    
+    public function initDatabase()
+    {
+        $this->pdo = new PDO($this->dsn, $this->user, $this->password);
     }
-    public function executeQuery($SQL){
+    public function executeQuery($SQL)
+    {
         $result = $this->pdo->query($SQL);
         return $result->fetchAll();
     }
@@ -34,13 +44,14 @@ class DatabaseTools
     /*
      * un param serait = ["paramKey" => ":name", "paramValue" => "Claude"]
      */
-    public function insertQuery($sql, $params) {
+    public function insertQuery($sql, $params)
+    {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
     }
-    public function selectByNameInTable($tableName, $name){
+    public function selectByNameInTable($tableName, $name)
+    {
         $result = $this->pdo->query("SELECT * FROM $tableName WHERE user_name = '$name'");
         return $result->fetch();
     }
-
 }
